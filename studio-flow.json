@@ -139,7 +139,7 @@
             "key": "conversationSid"
           }
         ],
-        "url": "https://frontline-quick-deploy-2-4442-dev.twil.io/callbacks/routing"
+        "url": "https://your-serverless-url-dev.twil.io/callbacks/routing"
       }
     },
     {
@@ -191,7 +191,7 @@
             "key": "conversationSid"
           }
         ],
-        "url": "https://frontline-quick-deploy-2-4442-dev.twil.io/callbacks/get-convo-name"
+        "url": "https://your-serverless-url-dev.twil.io/callbacks/get-convo-name"
       }
     },
     {
@@ -223,7 +223,7 @@
             "key": "conversationSid"
           }
         ],
-        "url": "https://frontline-quick-deploy-2-4442-dev.twil.io/callbacks/add-convo-name"
+        "url": "https://your-serverless-url-dev.twil.io/callbacks/add-convo-name"
       }
     },
     {
@@ -285,7 +285,7 @@
             "key": "To"
           }
         ],
-        "url": "https://frontline-quick-deploy-2-4442-dev.twil.io/callbacks/voice-to-wa"
+        "url": "https://your-serverless-url-dev.twil.io/callbacks/voice-to-wa"
       }
     },
     {
@@ -382,7 +382,7 @@
             "key": "customerNumber"
           }
         ],
-        "url": "https://frontline-quick-deploy-2-4442-dev.twil.io/callbacks/get-customer"
+        "url": "https://your-serverless-url-dev.twil.io/callbacks/get-customer"
       }
     },
     {
