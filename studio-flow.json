@@ -1,0 +1,506 @@
+{
+  "description": "A New Flow",
+  "states": [
+    {
+      "name": "Trigger",
+      "type": "trigger",
+      "transitions": [
+        {
+          "event": "incomingMessage"
+        },
+        {
+          "next": "set_variables_2",
+          "event": "incomingCall"
+        },
+        {
+          "next": "set_variables_1",
+          "event": "incomingConversationMessage"
+        },
+        {
+          "event": "incomingRequest"
+        },
+        {
+          "event": "incomingParent"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "name": "new-customer-name",
+      "type": "send-and-wait-for-reply",
+      "transitions": [
+        {
+          "next": "new-customer-send-reply",
+          "event": "incomingMessage"
+        },
+        {
+          "event": "timeout"
+        },
+        {
+          "event": "deliveryFailure"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 670,
+          "y": 980
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "body": "Olá, bem vindo(a) ao atendimento Twilio! Antes de iniciarmos, nos informe seu nome por favor.",
+        "timeout": "3600"
+      }
+    },
+    {
+      "name": "split-agent-new-customer",
+      "type": "split-based-on",
+      "transitions": [
+        {
+          "event": "noMatch"
+        },
+        {
+          "next": "transfer-message",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If value matches any of Agente,agente",
+              "arguments": ["{{widgets.new-customer-send-reply.inbound.Body}}"],
+              "type": "matches_any_of",
+              "value": "Agente,agente"
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "input": "{{widgets.new-customer-send-reply.inbound.Body}}",
+        "offset": {
+          "x": 660,
+          "y": 1410
+        }
+      }
+    },
+    {
+      "name": "set_variables_1",
+      "type": "set-variables",
+      "transitions": [
+        {
+          "next": "get-convo-name",
+          "event": "next"
+        }
+      ],
+      "properties": {
+        "variables": [
+          {
+            "value": "{{trigger.conversation.ConversationSid}}",
+            "key": "conversationSid"
+          },
+          {
+            "value": "{{trigger.conversation.From}}",
+            "key": "customerNumber"
+          }
+        ],
+        "offset": {
+          "x": 250,
+          "y": 160
+        }
+      }
+    },
+    {
+      "name": "routing",
+      "type": "make-http-request",
+      "transitions": [
+        {
+          "event": "success"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 680,
+          "y": 1830
+        },
+        "method": "POST",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "parameters": [
+          {
+            "value": "{{flow.variables.customerNumber}}",
+            "key": "customerNumber"
+          },
+          {
+            "value": "{{flow.variables.conversationSid}}",
+            "key": "conversationSid"
+          }
+        ],
+        "url": "https://frontline-quick-deploy-2-4442-dev.twil.io/callbacks/routing"
+      }
+    },
+    {
+      "name": "transfer-message",
+      "type": "send-message",
+      "transitions": [
+        {
+          "next": "add-convo-name",
+          "event": "sent"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 510,
+          "y": 1630
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "body": "Um momento enquanto te transfiro ao seu agente exclusivo."
+      }
+    },
+    {
+      "name": "get-convo-name",
+      "type": "make-http-request",
+      "transitions": [
+        {
+          "next": "split-convo-name",
+          "event": "success"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 580,
+          "y": 160
+        },
+        "method": "GET",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "parameters": [
+          {
+            "value": "{{flow.variables.conversationSid}}",
+            "key": "conversationSid"
+          }
+        ],
+        "url": "https://frontline-quick-deploy-2-4442-dev.twil.io/callbacks/get-convo-name"
+      }
+    },
+    {
+      "name": "add-convo-name",
+      "type": "make-http-request",
+      "transitions": [
+        {
+          "next": "routing",
+          "event": "success"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 300,
+          "y": 1830
+        },
+        "method": "POST",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "parameters": [
+          {
+            "value": "{{flow.variables.customerNumber}}",
+            "key": "customerNumber"
+          },
+          {
+            "value": "{{flow.variables.conversationSid}}",
+            "key": "conversationSid"
+          }
+        ],
+        "url": "https://frontline-quick-deploy-2-4442-dev.twil.io/callbacks/add-convo-name"
+      }
+    },
+    {
+      "name": "gather_1",
+      "type": "gather-input-on-call",
+      "transitions": [
+        {
+          "next": "function_1",
+          "event": "keypress"
+        },
+        {
+          "event": "speech"
+        },
+        {
+          "event": "timeout"
+        }
+      ],
+      "properties": {
+        "voice": "Polly.Camila",
+        "number_of_digits": 1,
+        "speech_timeout": "auto",
+        "offset": {
+          "x": -160,
+          "y": 390
+        },
+        "loop": 1,
+        "finish_on_key": "#",
+        "say": ",,,Olá, bem vindo ao atendimento Twilio! Para continuar esse atendimento via Whats-ápp, favor digitar 0",
+        "language": "pt-BR",
+        "stop_gather": true,
+        "gather_language": "en",
+        "profanity_filter": "true",
+        "timeout": 5
+      }
+    },
+    {
+      "name": "function_1",
+      "type": "run-function",
+      "transitions": [
+        {
+          "next": "say_play_2",
+          "event": "success"
+        },
+        {
+          "event": "fail"
+        }
+      ],
+      "properties": {
+        "service_sid": "ZSc6c2ace46e7983752bc318aae3d4a678",
+        "environment_sid": "ZE74ceaa02d6226adef613571eaf3ef5f6",
+        "offset": {
+          "x": -160,
+          "y": 600
+        },
+        "function_sid": "ZH024b39ba77322d868cf6f7774da33fbe",
+        "parameters": [
+          {
+            "value": "{{flow.variables.To}}",
+            "key": "To"
+          }
+        ],
+        "url": "https://frontline-quick-deploy-2-4442-dev.twil.io/callbacks/voice-to-wa"
+      }
+    },
+    {
+      "name": "set_variables_2",
+      "type": "set-variables",
+      "transitions": [
+        {
+          "next": "gather_1",
+          "event": "next"
+        }
+      ],
+      "properties": {
+        "variables": [
+          {
+            "value": "{{trigger.call.From}}",
+            "key": "To"
+          }
+        ],
+        "offset": {
+          "x": -160,
+          "y": 190
+        }
+      }
+    },
+    {
+      "name": "say_play_2",
+      "type": "say-play",
+      "transitions": [
+        {
+          "event": "audioComplete"
+        }
+      ],
+      "properties": {
+        "voice": "Polly.Camila",
+        "offset": {
+          "x": -170,
+          "y": 810
+        },
+        "loop": 1,
+        "say": "Favor se dirigir ao aplicativo do Whats-ápp para continuar o atendimento. Até já!",
+        "language": "pt-BR"
+      }
+    },
+    {
+      "name": "split-convo-name",
+      "type": "split-based-on",
+      "transitions": [
+        {
+          "event": "noMatch"
+        },
+        {
+          "next": "get-customer",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "http_2.parsed.name",
+              "arguments": ["{{widgets.get-convo-name.parsed.name}}"],
+              "type": "is_blank",
+              "value": "Is Blank"
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "input": "{{widgets.get-convo-name.parsed.name}}",
+        "offset": {
+          "x": 420,
+          "y": 360
+        }
+      }
+    },
+    {
+      "name": "get-customer",
+      "type": "make-http-request",
+      "transitions": [
+        {
+          "next": "split-customer",
+          "event": "success"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 450,
+          "y": 560
+        },
+        "method": "GET",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "parameters": [
+          {
+            "value": "{{flow.variables.customerNumber}}",
+            "key": "customerNumber"
+          }
+        ],
+        "url": "https://frontline-quick-deploy-2-4442-dev.twil.io/callbacks/get-customer"
+      }
+    },
+    {
+      "name": "split-customer",
+      "type": "split-based-on",
+      "transitions": [
+        {
+          "next": "existing-customer-send-reply",
+          "event": "noMatch"
+        },
+        {
+          "next": "new-customer-name",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "get-customer.parsed.customer",
+              "arguments": ["{{widgets.get-customer.parsed.customer}}"],
+              "type": "is_blank",
+              "value": "Is Blank"
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "input": "{{widgets.get-customer.parsed.customer}}",
+        "offset": {
+          "x": 420,
+          "y": 770
+        }
+      }
+    },
+    {
+      "name": "existing-customer-send-reply",
+      "type": "send-and-wait-for-reply",
+      "transitions": [
+        {
+          "next": "split-agent-existing-customer",
+          "event": "incomingMessage"
+        },
+        {
+          "event": "timeout"
+        },
+        {
+          "event": "deliveryFailure"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 310,
+          "y": 970
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "body": "Bem vindo(a) de volta {{widgets.get-customer.parsed.customer.display_name}}! Para eu te transferir ao seu agente exclusivo, digite \"agente\".",
+        "timeout": "3600"
+      }
+    },
+    {
+      "name": "split-agent-existing-customer",
+      "type": "split-based-on",
+      "transitions": [
+        {
+          "event": "noMatch"
+        },
+        {
+          "next": "transfer-message",
+          "event": "match",
+          "conditions": [
+            {
+              "friendly_name": "If value contains Sim,sim",
+              "arguments": [
+                "{{widgets.existing-customer-send-reply.inbound.Body}}"
+              ],
+              "type": "matches_any_of",
+              "value": "Agente,agente"
+            }
+          ]
+        }
+      ],
+      "properties": {
+        "input": "{{widgets.existing-customer-send-reply.inbound.Body}}",
+        "offset": {
+          "x": 240,
+          "y": 1190
+        }
+      }
+    },
+    {
+      "name": "new-customer-send-reply",
+      "type": "send-and-wait-for-reply",
+      "transitions": [
+        {
+          "next": "split-agent-new-customer",
+          "event": "incomingMessage"
+        },
+        {
+          "event": "timeout"
+        },
+        {
+          "event": "deliveryFailure"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 670,
+          "y": 1190
+        },
+        "service": "{{trigger.message.InstanceSid}}",
+        "channel": "{{trigger.message.ChannelSid}}",
+        "from": "{{flow.channel.address}}",
+        "body": "Muito prazer {{widgets.new-customer-name.inbound.Body}}! Para falar com um agente exclusivo, digite \"agente\".",
+        "timeout": "3600"
+      }
+    }
+  ],
+  "initial_state": "Trigger",
+  "flags": {
+    "allow_concurrent_calls": true
+  }
+}
