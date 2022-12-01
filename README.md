@@ -20,7 +20,8 @@ This is a solution for Twilio Frontline that integrates Twilio Serverless Functi
 ## Prerequisites
 
 - A Twilio Account. Don't have one? [Sign up](https://www.twilio.com/try-twilio) for free!
-- Twilio's Command-Line Interface (CLI). [Install it here](https://www.twilio.com/docs/twilio-cli/quickstart).
+- Twilio's Command-Line Interface (CLI) - [Install it here](https://www.twilio.com/docs/twilio-cli/quickstart).
+- Twilio Serverless Toolkit - [Install it here](https://www.twilio.com/docs/labs/serverless-toolkit/getting-started).
 - A WhatsApp enabled [phone number](https://www.twilio.com/docs/whatsapp/self-sign-up).
 - A [Twilio Frontline instance](https://www.twilio.com/docs/frontline/nodejs-demo-quickstart#create-a-new-twilio-frontline-instance).
 - Twilio Conversations [configured](https://www.twilio.com/docs/frontline/nodejs-demo-quickstart#configure-twilio-conversations) to use the Frontline Conversations service as it's default conversation service.
@@ -106,7 +107,7 @@ In the Twilio Console, go to **_Frontline > Manage > Callbacks_** and copy / pas
 
 ## Twilio Studio
 
-If you are not familiar with it, [learn more about Twilio Studio here](https://www.twilio.com/docs/studio/user-guide/get-started).
+If you are not familiar with Twilio Studio, [learn more about it here](https://www.twilio.com/docs/studio/user-guide/get-started).
 
 ### Studio Diagram
 
