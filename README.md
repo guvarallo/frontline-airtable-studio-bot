@@ -119,7 +119,7 @@ If you are not familiar with it, [learn more about Twilio Studio here](https://w
 
 - In your Twilio console, go to **_Studio > Flows_** and create a new flow.
 - To give you a head start, select the option **Import from JSON** and paste the content found in the [studio-flow.json](studio-flow.json) file.
-- You can use this flow to get you started. You can change the texts, languages, flows accordingly once created (pay attention to the architecture in the diagram below if you change the flow).
+- You can use this flow to get you started. You can change the texts, languages, flows accordingly once created (pay attention to the architecture in the diagram above to change the flow without issues).
 - Don't forget to change the function URLs inside the widgets to the ones you deployed above.
 
 ## Conversations Address Configuration
