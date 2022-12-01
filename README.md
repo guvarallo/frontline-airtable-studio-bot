@@ -76,14 +76,14 @@ twilio serverless:deploy --service-name=frontline-airtable-studio-bot
 
 The app provides the following callback URLs:
 
-- `/callbacks/add-convo-name`: called inside the Twilio Studio flow to add a name to the conversation.
+- `/callbacks/add-convo-name`: called inside the Twilio Studio flow to add a name to the conversation. Conversations are created by default without a name, so we'll need a name to differentiate between a new conversation (start the studio flow bot) or an already existing one (ignores the studio flow bot).
 - `/callbacks/crm`: called when Frontline loads the contact list or a user detail page.
-- `/callbacks/get-convo-name`: called inside the Twilio Studio flow to get the name of the existing conversation (if there is one).
+- `/callbacks/get-convo-name`: called inside the Twilio Studio flow to get the name of the existing conversation (if there is one). **We use the conversation name to check if there is already an opened conversation with the customer, so the bot won't start again**.
 - `/callbacks/get-customer`: called inside the Twilio Studio flow to get the customer name on Airtable that is making the contact (if there is a record).
 - `/callbacks/outgoing-conversation`: called when a user initiates an outbound conversation.
 - `/callbacks/routing`: called when a messages is sent inbound that does not match an open conversation.
 - `/callbacks/templates`: called when a user opens the templates menu.
-- `/callbacks/voice-to-wa`: called inside the Twilio Studio flow in the incoming call trigger to transfer the call to a whatsapp conversation.
+- `/callbacks/voice-to-wa`: called inside the Twilio Studio flow in the incoming call trigger. It will transfer the call to a whatsapp conversation and end the call.
 
 ## Configure Callbacks
 
@@ -111,9 +111,15 @@ In the Twilio Console, go to **_Frontline > Manage > Callbacks_** and copy / pas
 
 If you are not familiar with it, [learn more about Twilio Studio here](https://www.twilio.com/docs/studio/user-guide/get-started).
 
+### Studio Diagram
+
+![studio-diagram](studio-diagram.jpeg)
+
+### Studio Instructions
+
 - In your Twilio console, go to **_Studio > Flows_** and create a new flow.
 - To give you a head start, select the option **Import from JSON** and paste the content found in the [studio-flow.json](studio-flow.json) file.
-- You can use this flow to get you started. You can change the texts, languages, flows accordingly once created (pay attention to the architecture if you change the flow).
+- You can use this flow to get you started. You can change the texts, languages, flows accordingly once created (pay attention to the architecture in the diagram below if you change the flow).
 - Don't forget to change the function URLs inside the widgets to the ones you deployed above.
 
 ## Conversations Address Configuration
@@ -130,3 +136,7 @@ twilio api:conversations:v1:configuration:addresses:create \
     --type whatsapp \
     --address <Your WhatsApp Twilio Number> # e.g. whatsapp:+5511912345678
 ```
+
+## Kudos
+
+Special thanks to [Charlie Weems](https://github.com/cweems), [Dan Jeannotte](https://github.com/danjea) and [shzoghby](https://github.com/shzoghby) for building the original project.
