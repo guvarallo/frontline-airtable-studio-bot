@@ -1,6 +1,8 @@
 # Frontline Airtable + Studio for WhatsApp and Voice Calls
 
-## This repository is built on top of the project [Frontline Airtable Serverless Quickstart](https://github.com/twilio-labs/frontline-airtable-serverless-quickstart). To make it easier, I copied their instructions here on this repo and made a few changes to include the features I added.
+## Foreword
+
+This repository is built on top of the project [Frontline Airtable Serverless Quickstart](https://github.com/twilio-labs/frontline-airtable-serverless-quickstart). To make it easier, I copied their instructions here on this repo and made a few changes to include the features I added.
 
 ## Overview
 
