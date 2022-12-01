@@ -19,16 +19,12 @@ This is a solution for Twilio Frontline that integrates Twilio Serverless Functi
 
 ## Prerequisites
 
-We recommend following the setup outlined Frontline node.js quickstart, which shows you how to do the following:
-
 - A Twilio Account. Don't have one? [Sign up](https://www.twilio.com/try-twilio) for free!
 - Twilio's Command-Line Interface (CLI). [Install it here](https://www.twilio.com/docs/twilio-cli/quickstart).
 - A WhatsApp enabled [phone number](https://www.twilio.com/docs/whatsapp/self-sign-up).
 - A [Twilio Frontline instance](https://www.twilio.com/docs/frontline/nodejs-demo-quickstart#create-a-new-twilio-frontline-instance).
 - Twilio Conversations [configured](https://www.twilio.com/docs/frontline/nodejs-demo-quickstart#configure-twilio-conversations) to use the Frontline Conversations service as it's default conversation service.
 - Additionally, you'll need to [copy this Airtable Base template](https://airtable.com/shrbXF88oQlRh7ZXh) and have your [Airtable API key](https://support.airtable.com/hc/en-us/articles/219046777-How-do-I-get-my-API-key-) along with your [Base ID](https://support.airtable.com/hc/en-us/articles/4405741487383-Understanding-Airtable-IDs).
-
-Once you reach the step to "Configure the Frontline Integration Service" you are ready to deploy this app.
 
 ## Project Setup
 
@@ -88,7 +84,7 @@ The app provides the following callback URLs:
 
 ## Configure Callbacks
 
-Copy and paste the callback URLs (uncluding your unique subdomain) into your Frontline configuration in the console.
+Copy and paste the callback URLs into your Frontline configuration in the console.
 
 ### Routing configuration
 
