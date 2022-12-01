@@ -22,6 +22,7 @@ This is a solution for Twilio Frontline that integrates Twilio Serverless Functi
 We recommend following the setup outlined Frontline node.js quickstart, which shows you how to do the following:
 
 - A Twilio Account. Don't have one? [Sign up](https://www.twilio.com/try-twilio) for free!
+- Twilio's Command-Line Interface (CLI). [Install it here](https://www.twilio.com/docs/twilio-cli/quickstart).
 - A WhatsApp enabled [phone number](https://www.twilio.com/docs/whatsapp/self-sign-up).
 - A [Twilio Frontline instance](https://www.twilio.com/docs/frontline/nodejs-demo-quickstart#create-a-new-twilio-frontline-instance).
 - Twilio Conversations [configured](https://www.twilio.com/docs/frontline/nodejs-demo-quickstart#configure-twilio-conversations) to use the Frontline Conversations service as it's default conversation service.
@@ -124,7 +125,9 @@ If you are not familiar with it, [learn more about Twilio Studio here](https://w
 
 ## Conversations Address Configuration
 
-Finally, we need to [create a Conversation Address Configuration](https://www.twilio.com/docs/conversations/api/address-configuration-resource#create-an-addressconfiguration-resource) and setup the webhook which will be called with the `onMessageAdded` event, that redirects the message to our bot on Twilio Studio:
+Finally, we need to [create a Conversation Address Configuration](https://www.twilio.com/docs/conversations/api/address-configuration-resource#create-an-addressconfiguration-resource) and setup the webhook which will be called with the `onMessageAdded` event, that redirects the message to our bot on Twilio Studio.
+
+In your terminal, run the following:
 
 ```bash
 twilio api:conversations:v1:configuration:addresses:create \
