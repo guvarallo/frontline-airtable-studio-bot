@@ -1,6 +1,8 @@
-# Frontline Airtable and Twilio Studio Bot for WhatsApp and Voice Calls
+# Frontline Airtable + Studio for WhatsApp and Voice Calls
 
-### This repository is built on top of the project [Frontline Airtable Serverless Quickstart](https://github.com/twilio-labs/frontline-airtable-serverless-quickstart). To make it easier, I copied their instructions here on this repo and made a few changes to include the features I added.
+## This repository is built on top of the project [Frontline Airtable Serverless Quickstart](https://github.com/twilio-labs/frontline-airtable-serverless-quickstart). To make it easier, I copied their instructions here on this repo and made a few changes to include the features I added.
+
+## Overview
 
 This is a solution for Twilio Frontline that integrates Twilio Serverless Functions with Airtable as the contact database, and adds a few other functions to assit on building a powerful bot with Twilio Studio for WhatsApp messages and Voice calls. It implements a few features:
 
@@ -108,13 +110,13 @@ In the Twilio Console, go to **_Frontline > Manage > Callbacks_** and copy / pas
 If you are not familiar with it, [learn more about Twilio Studio here](https://www.twilio.com/docs/studio/user-guide/get-started).
 
 - In your Twilio console, go to **_Studio > Flows_** and create a new flow.
-- To give you a head start, select the option **Import from JSON** and paste the content found in the `studio-flow.json` file.
+- To give you a head start, select the option **Import from JSON** and paste the content found in the [studio-flow.json](studio-flow.json) file.
 - You can use this flow to get you started. You can change the texts, languages, flows accordingly once created (pay attention to the architecture if you change the flow).
-- **Don't forget to change the function URLs inside the widgets to the ones you deployed above.**
+- Don't forget to change the function URLs inside the widgets to the ones you deployed above.
 
 ## Conversations Address Configuration
 
-Now we need to [create a Conversation Address Configuration](https://www.twilio.com/docs/conversations/api/address-configuration-resource#create-an-addressconfiguration-resource) and setup the webhook which will be called with the `onMessageAdded` event, that redirects the message to our bot on Twilio Studio:
+Finally, we need to [create a Conversation Address Configuration](https://www.twilio.com/docs/conversations/api/address-configuration-resource#create-an-addressconfiguration-resource) and setup the webhook which will be called with the `onMessageAdded` event, that redirects the message to our bot on Twilio Studio:
 
 ```bash
 twilio api:conversations:v1:configuration:addresses:create \
