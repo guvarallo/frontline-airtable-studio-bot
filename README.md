@@ -89,7 +89,7 @@ Copy and paste the callback URLs into your Frontline configuration in the consol
 
 ### Routing configuration
 
-In the Twilio Console, go to **_Frontline > Manage > Routing_** and select the option **Do not route**.
+In the Twilio Console, go to **_Frontline > Manage > Routing_** and select the option **Do not route**. We'll do this later inside Twilio Studio.
 
 ### Frontline callbacks
 
