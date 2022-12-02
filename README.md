@@ -12,7 +12,7 @@ This is a solution for Twilio Frontline that integrates Twilio Serverless Functi
 - 🔀 Route inbound conversations in Frontline based on Airtable record ownership
 - 📓 Define message templates in Airtable
 - 🔐 Okta SSO setup script for easy SSO integration
-- 💻 Functions to make the message bot better
+- 💻 Functions to make an awesome message bot
 - 💻 A function to make an automated voice call bot to redirect to WhatsApp
 
 > **Note**: Airtable's API has a maximum throughput of 5 requests per second. This product is not suitable for large teams, see the Integration Limits section for more details.
