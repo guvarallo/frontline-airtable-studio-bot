@@ -74,7 +74,7 @@ twilio serverless:deploy --service-name=frontline-airtable-studio-bot
 
 The app provides the following callback URLs:
 
-- `/callbacks/add-convo-name`: called inside the Twilio Studio flow to add a name to the conversation. Conversations are created by default without a name, so we'll need a name to differentiate between a new conversation (start the studio flow bot) or an already existing one (ignores the studio flow bot).
+- `/callbacks/add-convo-name`: called inside the Twilio Studio flow to add a name to the conversation. Conversations are created by default without a name, so we'll need a name to differentiate between a new conversation (start the studio flow bot) or an existing one (ignores the studio flow bot).
 - `/callbacks/crm`: called when Frontline loads the contact list or a user detail page.
 - `/callbacks/get-convo-name`: called inside the Twilio Studio flow to get the name of the existing conversation (if there is one). **We use the conversation name to check if there is already an opened conversation with the customer, so the bot won't start again**.
 - `/callbacks/get-customer`: called inside the Twilio Studio flow to get the customer name on Airtable that is making the contact (if there is a record).
@@ -139,4 +139,4 @@ twilio api:conversations:v1:configuration:addresses:create \
 
 ## Kudos
 
-Special thanks to [Charlie Weems](https://github.com/cweems), [Dan Jeannotte](https://github.com/danjea) and [shzoghby](https://github.com/shzoghby) for building the original project.
+Special thanks to [Charlie Weems](https://github.com/cweems), [Dan Jeannotte](https://github.com/danjea) and [shzoghby](https://github.com/shzoghby) for building the Airtable part of the project.
